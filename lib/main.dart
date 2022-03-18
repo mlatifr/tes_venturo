@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Item> fakeListItem = [];
   Item fakeItem = Item(
       id: 1,
-      nama: 'nama',
+      nama: 'fake_nama',
       harga: 10000,
       tipe: 'tipe',
       gambar: 'cecek.jpg',
@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               bottomNavigationBar: costumBottomBar(
                   controllerVoucher: lm.controllerVoucher,
-                  totalHarga: lm.totalHarga),
+                ),
             ),
           );
         });

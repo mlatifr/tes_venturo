@@ -10,8 +10,10 @@ class ListMenuProvider extends ChangeNotifier {
   List<Item> listMenu = [];
   List<Order> listOrder = [];
   var totalHarga = 0;
-  notifListenr() {
-    notifListenr();
+
+  void totalHargaAdd(int itemPrice) {
+    totalHarga += itemPrice;
+    notifyListeners();
   }
 
   getListMenu() async {

@@ -60,7 +60,9 @@ class _WidgetCardItemState extends State<WidgetCardItem> {
 
                         print(
                             'Jumlah: ${widget.item.nama} | ${widget.item.jumlah}');
-                        setState(() {});
+                        setState(() {
+                          widget.item.jumlah;
+                        });
                       },
                       icon: const Icon(Icons.remove),
                       color: const Color.fromRGBO(0, 154, 173, 1),
@@ -69,10 +71,13 @@ class _WidgetCardItemState extends State<WidgetCardItem> {
                     IconButton(
                         onPressed: () {
                           widget.item.jumlah++;
+                          Provider.of<ListMenuProvider>(context, listen: false)
+                              .totalHargaAdd(widget.item.harga);
                           print(
                               'Jumlah: ${widget.item.nama} | ${widget.item.jumlah}');
-
-                          setState(() {});
+                          setState(() {
+                            widget.item.jumlah;
+                          });
                         },
                         icon: const Icon(
                           Icons.add,

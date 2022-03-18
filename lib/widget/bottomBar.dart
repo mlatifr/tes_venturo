@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 
 class costumBottomBar extends StatelessWidget {
   TextEditingController controllerVoucher;
-  var totalHarga;
-  costumBottomBar(
-      {Key? key, required this.controllerVoucher, required this.totalHarga})
-      : super(key: key);
+  costumBottomBar({
+    Key? key,
+    required this.controllerVoucher,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
