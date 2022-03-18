@@ -31,13 +31,13 @@ class _WidgetCardItemState extends State<WidgetCardItem> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20), // Image border
                   child: SizedBox.fromSize(
-                    size: const Size.fromRadius(50), // Image radius
-                    child: Image.network(
-                        'https://www.piknikdong.com/wp-content/uploads/2020/11/Resep-Chicken-Katsu.jpg',
-                        fit: BoxFit.cover),
-                  ),
+                      size: const Size.fromRadius(50), // Image radius
+                      child: Image.asset("assets/images/${widget.item.gambar}")
+                      //  Image.network(
+                      //     'https://www.piknikdong.com/wp-content/uploads/2020/11/Resep-Chicken-Katsu.jpg',
+                      //     fit: BoxFit.cover),
+                      ),
                 ),
-                //konten
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -17,7 +17,7 @@ class ListMenuProvider extends ChangeNotifier {
     }
   }
 
-  bacaDataMenu() {
+  Future<void> bacaDataMenu() async {
     print('bacaDataMenu');
     if (listMenu != null) listMenu.clear();
     Future<dynamic> data = getListMenu();
@@ -30,6 +30,7 @@ class ListMenuProvider extends ChangeNotifier {
           print('nama item: ${itm.nama}');
         }
         listMenu = listMenu;
+        notifyListeners();
       }
     });
   }

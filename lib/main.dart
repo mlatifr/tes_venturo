@@ -42,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> getMenu() async {
     print('get menu');
-    if (mounted) setState(() => _loading = true);
     var _duration = const Duration(seconds: 0);
 
     await Provider.of<ListMenuProvider>(context, listen: false).bacaDataMenu();
@@ -56,27 +55,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: costumAppBar(
-          tittle: 'Pesanan',
-          icon: '',
-          isLeading: false,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: ListView.builder(
-              itemCount: Provider.of<ListMenuProvider>(context).listMenu.length,
-              itemBuilder: (context, index) {
-                // return Text(
-                //     '${Provider.of<ListMenuProvider>(context).listMenu[index].nama}');
-                return WidgetCardItem(
-                    item:
-                        Provider.of<ListMenuProvider>(context).listMenu[index]);
-              }),
-        ),
-        bottomNavigationBar: const costumBottomBar(),
-      ),
-    );
+    return AnimatedBuilder(
+        animation: ListMenuProvider(),
+        builder: (_, snapshot) {
+          var lm = Provider.of<ListMenuProvider>(context).listMenu;
+          return SafeArea(
+            child: Scaffold(
+              appBar: costumAppBar(
+                tittle: 'Pesanan',
+                icon: '',
+                isLeading: false,
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ListView.builder(
+                    itemCount: lm.length,
+                    itemBuilder: (context, index) {
+                      // return Text(
+                      //     '${Provider.of<ListMenuProvider>(context).listMenu[index].nama}');
+                      return WidgetCardItem(item: lm[index]);
+                    }),
+              ),
+              bottomNavigationBar: const costumBottomBar(),
+            ),
+          );
+        });
   }
 }
