@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/main.dart';
 
 import '../model/item.dart';
 
@@ -48,9 +49,12 @@ class WidgetCardItem extends StatelessWidget {
                       icon: const Icon(Icons.remove),
                       color: const Color.fromRGBO(0, 154, 173, 1),
                     ),
-                    const Text('1'),
+                    Text(item.jumlah ?? ''),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          item.jumlah = item.jumlah + 1;
+                          print(item.jumlah);
+                        },
                         icon: const Icon(
                           Icons.add,
                           color: Color.fromRGBO(0, 154, 173, 1),

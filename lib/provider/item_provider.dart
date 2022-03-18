@@ -1,39 +1,36 @@
-// import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/model/item.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-// import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
-// import '../model/item.dart';
-// import 'package:logging/logging.dart' as logging;
+class ListMenuProvider extends ChangeNotifier {
+  List<Item> listMenu = [];
+  getListMenu() async {
+    final response = await http.get(
+      Uri.parse('http://192.168.1.56:7070/api/menus/'),
+    );
+    if (response.statusCode == 200) {
+      print('_getListMenu: ${response.body.runtimeType}');
+      return response.body;
+    } else {
+      throw Exception('Failed to read API');
+    }
+  }
 
-// class ItemProvider extends ChangeNotifier {
-//   static final _log = logging.Logger('OrderProvider');
-//   static const headers = {"Content-Type": "application/json", "token": "m_app"};
-
-//   // static List<Item> _listItem = [];
-//   // List<Item> get listItem => _listItem;
-//   static MenuList? _menuList;
-//   MenuList? get menuList => _menuList;
-
-//   Future<MenuList?> getListMenu() async {
-//     print('provider : getListMenu');
-//     try {
-//       print('try');
-//       final _api = Uri.http("http", "://192.168.1.62/api/menus");
-//       final response = await http.get(_api, headers: headers);
-//       print('response: ${response.body}');
-//       if (response.statusCode == 200 &&
-//           json.decode(response.body)["status_code"] == 200) {
-//         _menuList = menuListFromJson(response.body);
-//         if (_menuList != null) _log.fine("Success get all menu");
-//         notifyListeners();
-//         return _menuList;
-//       }
-
-//       _log.info("Fail to get all menu");
-//       _log.info(response.body);
-//       return null;
-//     } catch (e) {
-//       return null;
-//     }
-//   }
-// }
+  bacaDataMenu() {
+    print('bacaDataMenu');
+    if (listMenu != null) listMenu.clear();
+    Future<dynamic> data = getListMenu();
+    data.then((value) {
+      Map json = jsonDecode(value);
+      if (json['status_code'].toString().contains('200')) {
+        for (var i in json['datas']) {
+          Item itm = Item.fromJson(i);
+          listMenu.add(itm);
+          print('nama item: ${itm.nama}');
+        }
+        listMenu = listMenu;
+      }
+    });
+  }
+}
