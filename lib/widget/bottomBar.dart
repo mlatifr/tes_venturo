@@ -97,7 +97,8 @@ class _costumBottomBarState extends State<costumBottomBar> {
                               Consumer<ListMenuProvider>(
                                   builder: (context, value, child) => Column(
                                         children: [
-                                          Text('Potongan 20%'),
+                                          if (value.totalHarga > 40000)
+                                            const Text('Potongan 20%'),
                                           Row(
                                             children: [
                                               if (value.totalHarga > 40000)
@@ -127,43 +128,94 @@ class _costumBottomBarState extends State<costumBottomBar> {
                           GestureDetector(
                             onTap: () {
                               print('to select voucher');
-                              showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    height: 200,
-                                    // color: Colors.amber,
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          const Text('Masukan Voucher'),
-                                          Padding(
-                                            padding: const EdgeInsets.all(20.0),
-                                            child: TextFormField(
-                                              controller:
-                                                  widget.controllerVoucher,
+                              showModalBottomSheet(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(25.0))),
+                                  backgroundColor: Colors.black,
+                                  context: context,
+                                  isScrollControlled: true,
+                                  builder: (context) => Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 12.0),
+                                              child: Text(
+                                                'Enter your address',
+                                              ),
                                             ),
-                                          ),
-                                          ElevatedButton(
-                                            child:
-                                                const Text('Close BottomSheet'),
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
+                                            SizedBox(
+                                              height: 8.0,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context)
+                                                      .viewInsets
+                                                      .bottom),
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    hintText: 'adddrss'),
+                                                autofocus: true,
+                                                controller:
+                                                    widget.controllerVoucher,
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                          ],
+                                        ),
+                                      ));
+                              // showModalBottomSheet<void>(
+                              //   context: context,
+                              //   builder: (BuildContext context) {
+                              //     return Container(
+                              //       // color: Colors.amber,
+                              //       child: Center(
+                              //         child: Column(
+                              //           mainAxisAlignment:
+                              //               MainAxisAlignment.start,
+                              //           mainAxisSize: MainAxisSize.min,
+                              //           children: <Widget>[
+                              //             const Text('Masukan Voucher'),
+                              //             Padding(
+                              //               padding: const EdgeInsets.only(
+                              //                   left: 20.0,
+                              //                   right: 20.0,
+                              //                   bottom: 20),
+                              //               child: TextFormField(
+                              //                 controller:
+                              //                     widget.controllerVoucher,
+                              //               ),
+                              //             ),
+                              //             ElevatedButton(
+                              //               child:
+                              //                   const Text('Close BottomSheet'),
+                              //               onPressed: () =>
+                              //                   Navigator.pop(context),
+                              //             ),
+                              //             SizedBox(
+                              //               height: MediaQuery.of(context)
+                              //                       .viewInsets
+                              //                       .bottom *
+                              //                   120,
+                              //             )
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     );
+                              //   },
+                              // );
                             },
                             child: Row(
                               children: const [
                                 Text('Rp 8.000'),
-                                Icon(Icons.arrow_right_outlined)
+                                Icon(Icons.arrow_forward_ios_sharp)
                               ],
                             ),
                           ),

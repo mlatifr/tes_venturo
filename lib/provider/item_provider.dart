@@ -10,15 +10,15 @@ class ListMenuProvider extends ChangeNotifier {
   TextEditingController controllerVoucher = TextEditingController();
   List<Item> listMenu = [];
   List<Order> listOrder = [];
-  double diskon = 0;
+
   double totalHarga = 0;
-  double totalPembayaran = 0;
-  
+  double totalPesanan = 0;
+  double diskon = 0;
   getDiskon(hargaNow) {
     print('hargaNow: $hargaNow');
     if (hargaNow > 40000) {
       diskon = hargaNow * 20 / 100;
-      totalPembayaran = hargaNow - diskon;
+      totalPesanan = hargaNow - diskon;
     }
   }
 
