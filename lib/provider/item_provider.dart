@@ -3,17 +3,30 @@ import 'package:flutter_application_1/model/item.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../model/order.dart';
+
 class ListMenuProvider extends ChangeNotifier {
+  TextEditingController controllerVoucher = TextEditingController();
   List<Item> listMenu = [];
+  List<Order> listOrder = [];
+  var totalHarga = 0;
+  notifListenr() {
+    notifListenr();
+  }
+
   getListMenu() async {
-    final response = await http.get(
-      Uri.parse('http://192.168.1.56:7070/api/menus/'),
-    );
-    if (response.statusCode == 200) {
-      print('_getListMenu: ${response.body.runtimeType}');
-      return response.body;
-    } else {
-      throw Exception('Failed to read API');
+    try {
+      final response = await http.get(
+        Uri.parse('http://192.168.1.56:7070/api/menus/'),
+      );
+      if (response.statusCode == 200) {
+        print('_getListMenu: ${response.body.runtimeType}');
+        return response.body;
+      } else {
+        print('${response.statusCode}');
+      }
+    } catch (e) {
+      return e;
     }
   }
 

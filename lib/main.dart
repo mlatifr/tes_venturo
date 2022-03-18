@@ -38,7 +38,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Item> fakeListItem = [];
+  Item fakeItem = Item(
+      id: 1,
+      nama: 'nama',
+      harga: 10000,
+      tipe: 'tipe',
+      gambar: 'cecek.jpg',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      jumlah: 0);
   bool _loading = false;
+  createFakeItem() {
+    for (var i = 0; i < 5; i++) {
+      fakeListItem.add(fakeItem);
+    }
+    setState(() {});
+  }
 
   Future<void> getMenu() async {
     print('get menu');
@@ -49,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    createFakeItem();
     getMenu();
     super.initState();
   }
@@ -58,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return AnimatedBuilder(
         animation: ListMenuProvider(),
         builder: (_, snapshot) {
-          var lm = Provider.of<ListMenuProvider>(context).listMenu;
+          var lm = Provider.of<ListMenuProvider>(context);
           return SafeArea(
             child: Scaffold(
               appBar: costumAppBar(
@@ -68,15 +85,21 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               body: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: ListView.builder(
-                    itemCount: lm.length,
-                    itemBuilder: (context, index) {
-                      // return Text(
-                      //     '${Provider.of<ListMenuProvider>(context).listMenu[index].nama}');
-                      return WidgetCardItem(item: lm[index]);
-                    }),
+                child: snapshot != null
+                    ? ListView.builder(
+                        itemCount: lm.listMenu.length,
+                        itemBuilder: (context, index) {
+                          return WidgetCardItem(item: lm.listMenu[index]);
+                        })
+                    : ListView.builder(
+                        itemCount: fakeListItem.length,
+                        itemBuilder: (context, index) {
+                          return WidgetCardItem(item: fakeListItem[index]);
+                        }),
               ),
-              bottomNavigationBar: const costumBottomBar(),
+              bottomNavigationBar: costumBottomBar(
+                  controllerVoucher: lm.controllerVoucher,
+                  totalHarga: lm.totalHarga),
             ),
           );
         });

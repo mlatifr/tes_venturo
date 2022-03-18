@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/voucher.dart';
+import 'package:flutter_application_1/provider/item_provider.dart';
+import 'package:provider/provider.dart';
 
 class costumBottomBar extends StatelessWidget {
-  const costumBottomBar({
-    Key? key,
-  }) : super(key: key);
+  TextEditingController controllerVoucher;
+  var totalHarga;
+  costumBottomBar(
+      {Key? key, required this.controllerVoucher, required this.totalHarga})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +48,20 @@ class costumBottomBar extends StatelessWidget {
                               Text('(4 Menu)'),
                             ],
                           ),
-                          const Text(
-                            'Rp 40.000',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                color: Color.fromRGBO(0, 154, 173, 1)),
+                          Consumer<ListMenuProvider>(
+                            builder: (context, _provider, child) => Text(
+                              'Rp ${_provider.totalHarga}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  color: Color.fromRGBO(0, 154, 173, 1)),
+                            ),
                           ),
+                          // Text(
+                          //   'Rp ${Provider.of<ListMenuProvider>(context, listen: true).totalHarga}',
+                          //   style: TextStyle(
+                          //       fontWeight: FontWeight.w800,
+                          //       color: Color.fromRGBO(0, 154, 173, 1)),
+                          // ),
                         ],
                       ),
                       Row(
@@ -86,10 +98,36 @@ class costumBottomBar extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               print('to select voucher');
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const VoucherPage()),
+                              showModalBottomSheet<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    height: 200,
+                                    // color: Colors.amber,
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          const Text('Masukan Voucher'),
+                                          Padding(
+                                            padding: const EdgeInsets.all(20.0),
+                                            child: TextFormField(
+                                              controller: controllerVoucher,
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                            child:
+                                                const Text('Close BottomSheet'),
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
                               );
                             },
                             child: Row(

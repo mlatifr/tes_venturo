@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 class Item {
-  var id, nama, harga, tipe, gambar, created_at, updated_at;
+  var id, nama, tipe, gambar, created_at, updated_at;
   num jumlah = 0;
+  int harga;
 
   Item(
       {required this.id,
