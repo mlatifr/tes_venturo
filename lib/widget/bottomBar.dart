@@ -23,12 +23,12 @@ class _costumBottomBarState extends State<costumBottomBar> {
 
   @override
   void initState() {
-    getDiskon();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    getDiskon();
     return BottomAppBar(
       child: ClipRRect(
         borderRadius: const BorderRadius.only(

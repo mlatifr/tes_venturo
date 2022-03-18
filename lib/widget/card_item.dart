@@ -38,17 +38,33 @@ class _WidgetCardItemState extends State<WidgetCardItem> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                // Container(
+                //   height: 80,
+                //   width: 80,
+                //   decoration: BoxDecoration(
+                //     image: DecorationImage(
+                //       image: NetworkImage('${widget.item.gambar}'),
+                //       // fit: BoxFit.fill,
+                //     ),
+                //   ),
+                // ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20), // Image border
                   child: SizedBox.fromSize(
                     size: const Size.fromRadius(50), // Image radius
                     child:
                         // Image.asset("assets/images/${widget.item.gambar}")
-                        Image.network(
-                            'https://www.piknikdong.com/wp-content/uploads/2020/11/Resep-Chicken-Katsu.jpg',
-                            fit: BoxFit.cover),
-                    // Image.network('${widget.item.gambar}',
-                    //     fit: BoxFit.cover),
+                        // Image.network(
+                        //     'https://www.piknikdong.com/wp-content/uploads/2020/11/Resep-Chicken-Katsu.jpg',
+                        //     fit: BoxFit.cover),
+                        Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                '${widget.item.gambar}',
+                              ),
+                              fit: BoxFit.scaleDown)),
+                    ),
                   ),
                 ),
                 Column(
@@ -87,12 +103,12 @@ class _WidgetCardItemState extends State<WidgetCardItem> {
                         onPressed: () {
                           widget.item.jumlah++;
                           Provider.of<ListMenuProvider>(context, listen: false)
-                              .totalHargaAdd(widget.item.harga);
+                              .totalHargaAdd(widget.item.harga)
+                              .then((value) => setState(() {
+                                    widget.item.jumlah;
+                                  }));
                           print(
                               'Jumlah: ${widget.item.nama} | ${widget.item.jumlah}');
-                          setState(() {
-                            widget.item.jumlah;
-                          });
                         },
                         icon: const Icon(
                           Icons.add,

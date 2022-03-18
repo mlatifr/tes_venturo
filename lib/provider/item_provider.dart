@@ -12,16 +12,16 @@ class ListMenuProvider extends ChangeNotifier {
   List<Order> listOrder = [];
   double diskon = 0;
   double totalHarga = 0;
-  void getDiskon(hargaNow) {
+  double totalPembayaran = 0;
+  getDiskon(hargaNow) {
     print('hargaNow: $hargaNow');
     if (hargaNow > 40000) {
       diskon = hargaNow * 20 / 100;
-      totalHarga = hargaNow - diskon;
-      notifyListeners();
+      totalPembayaran = hargaNow - diskon;
     }
   }
 
-  void totalHargaAdd(int itemPrice) {
+  Future<void> totalHargaAdd(int itemPrice) async {
     totalHarga += itemPrice;
     notifyListeners();
   }
