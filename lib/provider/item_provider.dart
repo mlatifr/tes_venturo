@@ -14,9 +14,22 @@ class ListMenuProvider extends ChangeNotifier {
   double totalHarga = 0;
   double totalPesanan = 0;
   double diskon = 0;
-
+  double totalPembayaran = 0;
+  double voucherNilai = 0;
   setVoucher(String kodeVoucher) {
-    print('kode voucher: $kodeVoucher');
+    print('kodeVoucher: $kodeVoucher');
+    if (kodeVoucher == 'hemat') {
+      voucherNilai = 10000;
+    }
+    if (kodeVoucher == 'puas') {
+      voucherNilai = 100000;
+    }
+    if (voucherNilai < totalPembayaran) {
+      print('voucherNilai < totalPembayaran: $voucherNilai < $totalPembayaran');
+    }
+    if (voucherNilai > totalPembayaran) {
+      print('voucherNilai > totalPembayaran: $voucherNilai > $totalPembayaran');
+    }
     notifyListeners();
   }
 
