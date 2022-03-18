@@ -209,9 +209,6 @@ class _costumBottomBarState extends State<costumBottomBar> {
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15)),
                 child: Container(
-                  // constraints: BoxConstraints(
-                  //     maxHeight: MediaQuery.of(context).size.height * .100,
-                  //     minHeight: MediaQuery.of(context).size.height * .100),
                   color: const Color.fromARGB(255, 246, 245, 236),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

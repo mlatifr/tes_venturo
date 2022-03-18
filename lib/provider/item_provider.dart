@@ -48,6 +48,9 @@ class ListMenuProvider extends ChangeNotifier {
       voucherNilai = 100000;
       sisaNominalVoucher = false;
       notifyListeners();
+    } else {
+      totalPembayaran = totalPesanan - diskon - voucherNilai;
+      notifyListeners();
     }
   }
 
@@ -56,12 +59,17 @@ class ListMenuProvider extends ChangeNotifier {
     if (hargaNow > 40000) {
       diskon = hargaNow * 20 / 100;
       totalPesanan = hargaNow - diskon;
+    } else {
+      totalPembayaran = totalPesanan - diskon - voucherNilai;
     }
   }
 
   Future<void> totalHargaAdd(int itemPrice) async {
+    print('itemPrice: $itemPrice totalHargaAdd');
     totalHarga += itemPrice;
+    print('totalHarga: $totalHarga totalHargaAdd');
     totalPembayaran = totalHarga - diskon - voucherNilai;
+    print('totalPembayaran: $totalPembayaran totalHargaAdd');
     notifyListeners();
   }
 
