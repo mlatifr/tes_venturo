@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/order.dart';
 import 'package:flutter_application_1/provider/item_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -27,27 +26,37 @@ class _WidgetCardItemState extends State<WidgetCardItem> {
             constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * .12,
                 minHeight: MediaQuery.of(context).size.height * .10),
-            color: const Color.fromRGBO(223, 223, 223, 1),
             width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+                color: Color.fromRGBO(246, 246, 246, 1),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(46, 46, 46, 0.35),
+                      spreadRadius: 8,
+                      blurRadius: 8)
+                ]),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20), // Image border
                   child: SizedBox.fromSize(
-                      size: const Size.fromRadius(50), // Image radius
-                      child: Image.asset("assets/images/${widget.item.gambar}")
-                      //  Image.network(
-                      //     'https://www.piknikdong.com/wp-content/uploads/2020/11/Resep-Chicken-Katsu.jpg',
-                      //     fit: BoxFit.cover),
-                      ),
+                    size: const Size.fromRadius(50), // Image radius
+                    child:
+                        // Image.asset("assets/images/${widget.item.gambar}")
+                        Image.network(
+                            'https://www.piknikdong.com/wp-content/uploads/2020/11/Resep-Chicken-Katsu.jpg',
+                            fit: BoxFit.cover),
+                    // Image.network('${widget.item.gambar}',
+                    //     fit: BoxFit.cover),
+                  ),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       '${widget.item.nama}',
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                     Text('Rp ${widget.item.harga}'),
                   ],

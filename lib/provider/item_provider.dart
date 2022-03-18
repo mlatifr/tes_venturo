@@ -6,10 +6,20 @@ import 'dart:convert';
 import '../model/order.dart';
 
 class ListMenuProvider extends ChangeNotifier {
+  final String _url = 'https://tes-mobile.landa.id/public/api/';
   TextEditingController controllerVoucher = TextEditingController();
   List<Item> listMenu = [];
   List<Order> listOrder = [];
-  var totalHarga = 0;
+  double diskon = 0;
+  double totalHarga = 0;
+  void getDiskon(hargaNow) {
+    print('hargaNow: $hargaNow');
+    if (hargaNow > 40000) {
+      diskon = hargaNow * 20 / 100;
+      totalHarga = hargaNow - diskon;
+      notifyListeners();
+    }
+  }
 
   void totalHargaAdd(int itemPrice) {
     totalHarga += itemPrice;
@@ -24,7 +34,7 @@ class ListMenuProvider extends ChangeNotifier {
   getListMenu() async {
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.1.56:7070/api/menus/'),
+        Uri.parse('${_url}menus/'),
       );
       if (response.statusCode == 200) {
         print('_getListMenu: ${response.body.runtimeType}');

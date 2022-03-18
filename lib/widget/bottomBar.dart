@@ -3,12 +3,29 @@ import 'package:flutter_application_1/voucher.dart';
 import 'package:flutter_application_1/provider/item_provider.dart';
 import 'package:provider/provider.dart';
 
-class costumBottomBar extends StatelessWidget {
+class costumBottomBar extends StatefulWidget {
   TextEditingController controllerVoucher;
   costumBottomBar({
     Key? key,
     required this.controllerVoucher,
   }) : super(key: key);
+
+  @override
+  State<costumBottomBar> createState() => _costumBottomBarState();
+}
+
+class _costumBottomBarState extends State<costumBottomBar> {
+  getDiskon() async {
+    var ttlHg =
+        Provider.of<ListMenuProvider>(context, listen: false).totalHarga;
+    Provider.of<ListMenuProvider>(context, listen: false).getDiskon(ttlHg);
+  }
+
+  @override
+  void initState() {
+    getDiskon();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +37,7 @@ class costumBottomBar extends StatelessWidget {
           constraints: BoxConstraints(
               maxHeight: MediaQuery.of(context).size.height * .25,
               minHeight: MediaQuery.of(context).size.height * .1),
-          color: const Color.fromARGB(255, 179, 190, 198),
+          color: Color.fromARGB(255, 41, 109, 158),
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             ClipRRect(
               borderRadius: const BorderRadius.only(
@@ -49,10 +66,10 @@ class costumBottomBar extends StatelessWidget {
                             ],
                           ),
                           Consumer<ListMenuProvider>(
-                            builder: (context, _provider, child) => Text(
+                            builder: (BuildContext context, _provider, child) =>
+                                Text(
                               'Rp ${_provider.totalHarga}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w800,
+                              style: const TextStyle(
                                   color: Color.fromRGBO(0, 154, 173, 1)),
                             ),
                           ),
@@ -77,7 +94,13 @@ class costumBottomBar extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              const Text('Rp 8.000'),
+                              Consumer<ListMenuProvider>(
+                                  builder: (context, value, child) => Column(
+                                        children: [
+                                          if (value.totalHarga > 40000)
+                                            Text('Rp ${value.diskon}'),
+                                        ],
+                                      )),
                               IconButton(
                                   onPressed: () {},
                                   icon: const Icon(Icons.arrow_right_outlined))
@@ -114,7 +137,8 @@ class costumBottomBar extends StatelessWidget {
                                           Padding(
                                             padding: const EdgeInsets.all(20.0),
                                             child: TextFormField(
-                                              controller: controllerVoucher,
+                                              controller:
+                                                  widget.controllerVoucher,
                                             ),
                                           ),
                                           ElevatedButton(

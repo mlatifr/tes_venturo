@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //     jumlah: 0);
   bool _loading = false;
   createFakeItem() {
-    for (var i = 1; i < 5; i++) {
+    for (var i = 1; i < 11; i++) {
       Item fakeItem = Item(
           id: 1,
           nama: 'fake_nama $i',
@@ -92,20 +92,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: '',
                 isLeading: false,
               ),
+              // body: Padding(
+              //   padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              //   child: snapshot != null
+              //       ? ListView.builder(
+              //           itemCount: lm.listMenu.length,
+              //           itemBuilder: (context, index) {
+              //             return WidgetCardItem(item: lm.listMenu[index]);
+              //           })
+              //       : ListView.builder(
+              //           itemCount: fakeListItem.length,
+              //           itemBuilder: (context, index) {
+              //             return WidgetCardItem(item: fakeListItem[index]);
+              //           }),
+              // ),
               body: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: snapshot != null
-                    ? ListView.builder(
-                        itemCount: lm.listMenu.length,
-                        itemBuilder: (context, index) {
-                          return WidgetCardItem(item: lm.listMenu[index]);
-                        })
-                    : ListView.builder(
-                        itemCount: fakeListItem.length,
-                        itemBuilder: (context, index) {
-                          return WidgetCardItem(item: fakeListItem[index]);
-                        }),
-              ),
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: ListView.builder(
+                      itemCount: lm.listMenu.length,
+                      itemBuilder: (context, index) {
+                        return WidgetCardItem(item: lm.listMenu[index]);
+                      })),
               bottomNavigationBar: costumBottomBar(
                 controllerVoucher: lm.controllerVoucher,
               ),
