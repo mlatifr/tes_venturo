@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 class Item {
-  var id, nama, harga, tipe, gambar, created_at, updated_at, jumlah;
+  var id, nama, harga, tipe, gambar, created_at, updated_at;
+  num jumlah = 0;
 
   Item(
       {required this.id,
@@ -11,7 +12,7 @@ class Item {
       required this.gambar,
       required this.created_at,
       required this.updated_at,
-      this.jumlah});
+      required this.jumlah});
   factory Item.fromJson(Map<String, dynamic> json) => Item(
       id: json['id'],
       nama: json['nama'],
@@ -19,5 +20,6 @@ class Item {
       tipe: json['tipe'],
       gambar: json['gambar'],
       created_at: json['created_at'],
-      updated_at: json['updated_at']);
+      updated_at: json['updated_at'],
+      jumlah: 0);
 }

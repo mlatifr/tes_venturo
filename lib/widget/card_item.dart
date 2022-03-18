@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/main.dart';
+import 'package:flutter_application_1/provider/item_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../model/item.dart';
 
-class WidgetCardItem extends StatelessWidget {
+class WidgetCardItem extends StatefulWidget {
   Item item;
   WidgetCardItem({Key? key, required this.item}) : super(key: key);
 
+  @override
+  State<WidgetCardItem> createState() => _WidgetCardItemState();
+}
+
+class _WidgetCardItemState extends State<WidgetCardItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,24 +42,31 @@ class WidgetCardItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${item.nama}',
+                      '${widget.item.nama}',
                       style: TextStyle(fontSize: 20),
                     ),
-                    Text('Rp ${item.harga}'),
+                    Text('Rp ${widget.item.harga}'),
                   ],
                 ),
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (widget.item.jumlah >= 1) widget.item.jumlah--;
+                        print(
+                            'Jumlah: ${widget.item.nama} | ${widget.item.jumlah}');
+                        setState(() {});
+                      },
                       icon: const Icon(Icons.remove),
                       color: const Color.fromRGBO(0, 154, 173, 1),
                     ),
-                    Text(item.jumlah ?? ''),
+                    Text('${widget.item.jumlah}'),
                     IconButton(
                         onPressed: () {
-                          item.jumlah = item.jumlah + 1;
-                          print(item.jumlah);
+                          widget.item.jumlah++;
+                          print(
+                              'Jumlah: ${widget.item.nama} | ${widget.item.jumlah}');
+                          setState(() {});
                         },
                         icon: const Icon(
                           Icons.add,
