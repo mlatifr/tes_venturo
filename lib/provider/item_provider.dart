@@ -61,11 +61,13 @@ class ListMenuProvider extends ChangeNotifier {
 
   Future<void> totalHargaAdd(int itemPrice) async {
     totalHarga += itemPrice;
+    totalPembayaran = totalHarga - diskon - voucherNilai;
     notifyListeners();
   }
 
   void totalHargaMin(int itemPrice) {
     totalHarga -= itemPrice;
+    totalPembayaran = totalHarga - diskon - voucherNilai;
     notifyListeners();
   }
 
