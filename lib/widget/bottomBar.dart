@@ -37,7 +37,7 @@ class _costumBottomBarState extends State<costumBottomBar> {
           constraints: BoxConstraints(
               maxHeight: MediaQuery.of(context).size.height * .25,
               minHeight: MediaQuery.of(context).size.height * .1),
-          color: Color.fromARGB(255, 41, 109, 158),
+          color: const Color.fromARGB(255, 41, 109, 158),
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             ClipRRect(
               borderRadius: const BorderRadius.only(
@@ -97,13 +97,19 @@ class _costumBottomBarState extends State<costumBottomBar> {
                               Consumer<ListMenuProvider>(
                                   builder: (context, value, child) => Column(
                                         children: [
-                                          if (value.totalHarga > 40000)
-                                            Text('Rp ${value.diskon}'),
+                                          Text('Potongan 20%'),
+                                          Row(
+                                            children: [
+                                              if (value.totalHarga > 40000)
+                                                Text(
+                                                    'Rp ${value.diskon.toStringAsFixed(0)}'),
+                                              if (value.totalHarga > 40000)
+                                                const Icon(Icons
+                                                    .chevron_right_outlined)
+                                            ],
+                                          ),
                                         ],
                                       )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.arrow_right_outlined))
                             ],
                           ),
                         ],

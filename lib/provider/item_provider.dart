@@ -13,6 +13,7 @@ class ListMenuProvider extends ChangeNotifier {
   double diskon = 0;
   double totalHarga = 0;
   double totalPembayaran = 0;
+  
   getDiskon(hargaNow) {
     print('hargaNow: $hargaNow');
     if (hargaNow > 40000) {
