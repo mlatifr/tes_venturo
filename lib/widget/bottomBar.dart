@@ -119,81 +119,84 @@ class _costumBottomBarState extends State<costumBottomBar> {
                             ),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Row(
-                              children: const [
-                                Icon(Icons.tab,
-                                    color: Color.fromRGBO(0, 154, 173, 1)),
-                                Text('Voucher'),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(25.0))),
-                                    // backgroundColor: Colors.black,
-                                    context: context,
-                                    isScrollControlled: true,
-                                    builder: (context) => Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 18),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              const Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 12.0),
-                                                child: Text(
-                                                  'Enter your address',
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 8.0,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    bottom:
-                                                        MediaQuery.of(context)
-                                                            .viewInsets
-                                                            .bottom),
-                                                child: TextField(
-                                                  decoration:
-                                                      const InputDecoration(
-                                                          hintText: 'adddrss'),
-                                                  autofocus: true,
-                                                  controller:
-                                                      widget.controllerVoucher,
-                                                  onSubmitted: (value) {
-                                                    Provider.of<ListMenuProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .setVoucher(value);
-                                                    print('value: $value');
-                                                    widget.controllerVoucher
-                                                        .text = '';
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
-                                            ],
+                        GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(25.0))),
+                                // backgroundColor: Colors.black,
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 18),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 12.0),
+                                            child: Text(
+                                              'Masukan kode voucher : hemat / puas',
+                                            ),
                                           ),
-                                        ));
-                              },
-                              child: Row(
+                                          const SizedBox(
+                                            height: 8.0,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                bottom: MediaQuery.of(context)
+                                                    .viewInsets
+                                                    .bottom),
+                                            child: TextField(
+                                              decoration: const InputDecoration(
+                                                  hintText: 'kode voucher'),
+                                              autofocus: true,
+                                              controller:
+                                                  widget.controllerVoucher,
+                                              onSubmitted: (value) {
+                                                Provider.of<ListMenuProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .setVoucher(value)
+                                                    .then((value) => {
+                                                          Provider.of<ListMenuProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .getNilaiVoucher()
+                                                        });
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                        ],
+                                      ),
+                                    ));
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
                                 children: const [
-                                  Text('Rp 8.000'),
+                                  Icon(Icons.tab,
+                                      color: Color.fromRGBO(0, 154, 173, 1)),
+                                  Text('Voucher'),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Consumer<ListMenuProvider>(
+                                      builder: ((context, value, child) =>
+                                          Text('Rp ${value.voucherNilai}'))),
                                   Icon(Icons.arrow_forward_ios_sharp)
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ]),
                 ),
@@ -218,9 +221,11 @@ class _costumBottomBarState extends State<costumBottomBar> {
                             const Icon(Icons.shopping_bag_outlined),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text('Total Pembayaran'),
-                                Text('Rp 36.000'),
+                                Consumer<ListMenuProvider>(
+                                    builder: (context, value, child) =>
+                                        Text('Rp ${value.totalPembayaran}')),
                               ],
                             ),
                           ],

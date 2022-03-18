@@ -106,7 +106,15 @@ class _WidgetCardItemState extends State<WidgetCardItem> {
                               .totalHargaAdd(widget.item.harga)
                               .then((value) => setState(() {
                                     widget.item.jumlah;
-                                  }));
+                                  }))
+                              .then((value) => Provider.of<ListMenuProvider>(
+                                      context,
+                                      listen: false)
+                                  .setVoucher(Provider.of<ListMenuProvider>(
+                                          context,
+                                          listen: false)
+                                      .controllerVoucher
+                                      .text));
                           print(
                               'Jumlah: ${widget.item.nama} | ${widget.item.jumlah}');
                         },

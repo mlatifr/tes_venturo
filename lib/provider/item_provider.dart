@@ -16,21 +16,39 @@ class ListMenuProvider extends ChangeNotifier {
   double diskon = 0;
   double totalPembayaran = 0;
   double voucherNilai = 0;
-  setVoucher(String kodeVoucher) {
-    print('kodeVoucher: $kodeVoucher');
-    if (kodeVoucher == 'hemat') {
+  bool sisaNominalVoucher = true;
+  getNilaiVoucher() {
+    print('getNilaiVoucher: $voucherNilai ');
+    // if (sisaNominalVoucher == false && voucherNilai <= 0) {
+    //   voucherNilai = 0.0;
+    // }
+    return voucherNilai;
+  }
+
+  Future<void> setVoucher(String? kodeVoucher) async {
+    print(
+        'kodeVoucher: $kodeVoucher | sisaNominalVoucher: $sisaNominalVoucher');
+    if (kodeVoucher == 'hemat' && sisaNominalVoucher == true) {
       voucherNilai = 10000;
+      notifyListeners();
     }
-    if (kodeVoucher == 'puas') {
+    if (kodeVoucher == 'puas' && sisaNominalVoucher == true) {
       voucherNilai = 100000;
+      notifyListeners();
     }
-    if (voucherNilai < totalPembayaran) {
+    if (voucherNilai < totalPembayaran ||
+        (kodeVoucher == 'hemat' && sisaNominalVoucher == true)) {
       print('voucherNilai < totalPembayaran: $voucherNilai < $totalPembayaran');
+      totalPembayaran = totalPesanan - diskon - voucherNilai;
+      notifyListeners();
     }
-    if (voucherNilai > totalPembayaran) {
+    if (voucherNilai > totalPembayaran && kodeVoucher == 'puas') {
       print('voucherNilai > totalPembayaran: $voucherNilai > $totalPembayaran');
+      totalPembayaran = 0;
+      voucherNilai = 100000;
+      sisaNominalVoucher = false;
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   getDiskon(hargaNow) {
