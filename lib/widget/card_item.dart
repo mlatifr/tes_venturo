@@ -57,7 +57,13 @@ class _WidgetCardItemState extends State<WidgetCardItem> {
                     IconButton(
                       onPressed: () {
                         if (widget.item.jumlah >= 1) widget.item.jumlah--;
-
+                        if (Provider.of<ListMenuProvider>(context,
+                                    listen: false)
+                                .totalHarga >=
+                            0) {
+                          Provider.of<ListMenuProvider>(context, listen: false)
+                              .totalHargaMin(widget.item.harga);
+                        }
                         print(
                             'Jumlah: ${widget.item.nama} | ${widget.item.jumlah}');
                         setState(() {

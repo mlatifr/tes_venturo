@@ -39,18 +39,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Item> fakeListItem = [];
-  Item fakeItem = Item(
-      id: 1,
-      nama: 'fake_nama',
-      harga: 10000,
-      tipe: 'tipe',
-      gambar: 'cecek.jpg',
-      created_at: 'created_at',
-      updated_at: 'updated_at',
-      jumlah: 0);
+  // Item fakeItem = Item(
+  //     id: 1,
+  //     nama: 'fake_nama',
+  //     harga: 10000,
+  //     tipe: 'tipe',
+  //     gambar: 'cecek.jpg',
+  //     created_at: 'created_at',
+  //     updated_at: 'updated_at',
+  //     jumlah: 0);
   bool _loading = false;
   createFakeItem() {
-    for (var i = 0; i < 5; i++) {
+    for (var i = 1; i < 5; i++) {
+      Item fakeItem = Item(
+          id: 1,
+          nama: 'fake_nama $i',
+          harga: 10000 * i,
+          tipe: 'tipe',
+          gambar: 'cecek.jpg',
+          created_at: 'created_at',
+          updated_at: 'updated_at',
+          jumlah: 0);
       fakeListItem.add(fakeItem);
     }
     setState(() {});
@@ -98,8 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         }),
               ),
               bottomNavigationBar: costumBottomBar(
-                  controllerVoucher: lm.controllerVoucher,
-                ),
+                controllerVoucher: lm.controllerVoucher,
+              ),
             ),
           );
         });

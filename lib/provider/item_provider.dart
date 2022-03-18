@@ -16,6 +16,11 @@ class ListMenuProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void totalHargaMin(int itemPrice) {
+    totalHarga -= itemPrice;
+    notifyListeners();
+  }
+
   getListMenu() async {
     try {
       final response = await http.get(
