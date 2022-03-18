@@ -79,6 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  void cekVoucher() {
+    print('cek voucher');
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -114,8 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         return WidgetCardItem(item: lm.listMenu[index]);
                       })),
               bottomNavigationBar: costumBottomBar(
-                controllerVoucher: lm.controllerVoucher,
-              ),
+                  controllerVoucher: lm.controllerVoucher, )
             ),
           );
         });

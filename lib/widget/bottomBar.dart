@@ -170,6 +170,10 @@ class _costumBottomBarState extends State<costumBottomBar> {
                                                   controller:
                                                       widget.controllerVoucher,
                                                   onSubmitted: (value) {
+                                                    Provider.of<ListMenuProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .setVoucher(value);
                                                     print('value: $value');
                                                     widget.controllerVoucher
                                                         .text = '';

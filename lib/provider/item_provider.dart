@@ -14,6 +14,12 @@ class ListMenuProvider extends ChangeNotifier {
   double totalHarga = 0;
   double totalPesanan = 0;
   double diskon = 0;
+
+  setVoucher(String kodeVoucher) {
+    print('kode voucher: $kodeVoucher');
+    notifyListeners();
+  }
+
   getDiskon(hargaNow) {
     print('hargaNow: $hargaNow');
     if (hargaNow > 40000) {
