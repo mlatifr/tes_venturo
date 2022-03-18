@@ -127,12 +127,11 @@ class _costumBottomBarState extends State<costumBottomBar> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              print('to select voucher');
                               showModalBottomSheet(
-                                  shape: RoundedRectangleBorder(
+                                  shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
                                           top: Radius.circular(25.0))),
-                                  backgroundColor: Colors.black,
+                                  // backgroundColor: Colors.black,
                                   context: context,
                                   isScrollControlled: true,
                                   builder: (context) => Padding(
@@ -143,15 +142,14 @@ class _costumBottomBarState extends State<costumBottomBar> {
                                               CrossAxisAlignment.start,
                                           mainAxisSize: MainAxisSize.min,
                                           children: <Widget>[
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 12.0),
+                                            const Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 12.0),
                                               child: Text(
                                                 'Enter your address',
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 8.0,
                                             ),
                                             Padding(
@@ -160,14 +158,21 @@ class _costumBottomBarState extends State<costumBottomBar> {
                                                       .viewInsets
                                                       .bottom),
                                               child: TextField(
-                                                decoration: InputDecoration(
-                                                    hintText: 'adddrss'),
+                                                decoration:
+                                                    const InputDecoration(
+                                                        hintText: 'adddrss'),
                                                 autofocus: true,
                                                 controller:
                                                     widget.controllerVoucher,
+                                                onSubmitted: (value) {
+                                                  print('value: $value');
+                                                  widget.controllerVoucher
+                                                      .text = '';
+                                                  Navigator.pop(context);
+                                                },
                                               ),
                                             ),
-                                            SizedBox(height: 10),
+                                            const SizedBox(height: 10),
                                           ],
                                         ),
                                       ));
